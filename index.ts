@@ -1,13 +1,9 @@
-import dotenv from "dotenv";
+require("dotenv").config();
 import cors from "cors";
-import jwt from "jsonwebtoken";
 import express, { NextFunction, Request, Response } from "express";
 import admin from "firebase-admin";
 import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
 import { DecodedIdToken } from "firebase-admin/auth";
-import { verify } from "node:crypto";
-
-dotenv.config();
 
 const app = express();
 app.use(cors());
@@ -330,6 +326,10 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Cyberpeers Server is running");
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+export default app;
+
+if (!process.env.VERCEL && require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+}

@@ -91,6 +91,7 @@ The middleware `verifyToken` verifies the token using Firebase Admin and sets `r
 This project includes the `jsonwebtoken` package, but the current server code does **not** issue or verify app-signed JWTs using `jsonwebtoken`.
 
 Important context:
+
 - A Firebase ID token is itself a **JWT**, and this server validates it via Firebase Admin (`admin.auth().verifyIdToken(...)`).
 - If you want to switch to (or add) your own JWT auth (signed with a shared secret or private key), you would need to implement that logic (e.g., verify `Authorization: Bearer <token>` with `jwt.verify(...)`) and introduce the required config (commonly something like `JWT_SECRET`).
 
